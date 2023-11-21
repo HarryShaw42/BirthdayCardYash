@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultimate Birthday Card</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      text-align: center;
+      overflow: hidden;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    #card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 50px auto;
+      max-width: 400px;
+    }
+
+    .firework {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-color: #ffcc00;
+      border-radius: 50%;
+      animation: explode 10s ease-out;
+      background: url('https://media.gettyimages.com/id/165059096/vector/monkey-holding-banana.jpg?s=1024x1024&w=gi&k=20&c=PsqKAkHY45g_mis3cjf4v6ivvIdlE526VXIFiPwDXYQ=') center/cover no-repeat;
+    }
+
+    .dancing-gif {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      pointer-events: none; /* Allow clicking through the gifs */
+    }
+
+    #image-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeInOut 6s ease-in-out infinite;
+    }
+
+    #fadeImage {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    @keyframes explode {
+      to {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* Add class 'spin' to body every 5 seconds */
+    @keyframes addSpinClass {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(180deg); }
+    }
+
+    /* Initially set rotation to 0 */
+    body {
+      transform: rotate(0deg);
+    }
+
+    /* Apply the spinning animation every 5 seconds */
+    body.rotate {
+      animation: addSpinClass 5s infinite;
+    }
+  </style>
+</head>
+<body style="background-image: url('data:image/jpeg;base64,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');">
+
+  <div id="card">
+    <h1>🎉 Happy Birthday, Yash! 🎂</h1>
+    <p>Wishing you a fantastic day filled with joy and celebration! I've made this page for you as a fun card. Have a good one mate.</p>
+    <button id="surpriseButton" onclick="createFireworks()">Press 1000 times for Surprise!</button>
+    <div id="counter">0</div>
+    <div>
+      <iframe src="https://giphy.com/embed/ORjfgiG9ZtxcQQwZzv"  frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+      <iframe src="https://giphy.com/embed/TPaaVxXfRPlPVdtNmS"  frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+      <img src="https://media.discordapp.net/attachments/811052131573563402/829255825905549332/200208656SOG_1162_720x1080.jpg?ex=6566e7ab&is=655472ab&hm=8edf158f5a3a1c294ad3e2d5af55894f48ea75118d5bc010486ae6ca5f9b46a3&=&width=369&height=554">
+      <!-- Add more dancing gifs as needed -->
+      <!-- Add more dancing gifs as needed -->
+
+        <img id="fadeImage" src="https://m.media-amazon.com/images/M/MV5BYWJmZmE1YWItYjBjYi00ODU4LTg2MDUtOTQyNWY2NjFlOGM5L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTExNDQ2MTI@._V1_.jpg" alt="Donald Trump Image">
+    </div>
+  </div>
+  <iframe style="display: none" width="1318" height="749" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Rick Astley - Never Gonna Give You Up (Official Music Video)" frameborder="0" allow="autoplay; " allowfullscreen></iframe>
+
+
+  <script>
+    let count = 0;
+
+    function createFireworks() {
+      count++;
+
+      // Update the counter
+      document.getElementById('counter').innerText = count;
+
+      if (count === 999) {
+        document.getElementById('surpriseButton').innerText = 'Happy Birthday!';
+        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=1s&ab_channel=RickAstley");
+      }
+
+      for (let i = 0; i < 10; i++) {
+        let firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.left = Math.random() * window.innerWidth + 'px';
+        firework.style.top = Math.random() * window.innerHeight + 'px';
+        document.body.appendChild(firework);
+
+        setTimeout(function () {
+          document.body.removeChild(firework);
+        }, 1000);
+      }
+    }
+
+    // Add the 'rotate' class to body every 5 seconds
+//setInterval(function() {
+//      document.body.classList.toggle('rotate');
+//    }, 5000);
+
+    function fadeInOutImage() {
+      const imageContainer = document.getElementById("image-container");
+      const fadeImage = document.getElementById("fadeImage");
+
+      // Set a new image source
+      fadeImage.src = "donald_trump_image.jpg";
+
+      // Trigger the fade in/out animation
+      imageContainer.style.opacity = 1;
+      setTimeout(() => {
+        imageContainer.style.opacity = 0;
+      }, 3000); // Adjust the duration (3 seconds for fade in + 3 seconds for fade out)
+    }
+
+    // Call the function every 6 seconds
+    setInterval(fadeInOutImage, 6000);
+  </script>
+</body>
+</html>
